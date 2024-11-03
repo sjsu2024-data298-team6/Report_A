@@ -34,9 +34,9 @@
 \professor{Dr. Simon Shim}
 \duedate{\today} % UPDATE THIS BEFORE SUBMISSION %
 
-\abstract{As the world becomes more autonomous in various facets, one area that needs improvement is obstacle detection in autonomous vehicles. There is still a large degree of false classifications leading to unnecessary avoidance or fatal accidents. We can improve existing applications or target vehicle markets that have not been served with this technology, such as railway operation and drone flight paths. Humans often overlook details and patterns. Creating a model to detect and label obstacles allows users to focus on making a decision. The targeted problem is to detect and label obstacles in a constrained environment such as a railway, road, or drone flight path. The scope of this project is to deliver a prototype model capable of performing obstacle detection and labeling on images and videos that can be applied to various domains such as autonomous vehicles, drones, and railroad safety. Success can be measured in accuracy of prediction using classification metrics. To perform this task, a suitable dataset must first be obtained, either from previous projects such as the widely used COCO dataset, as well as from online aggregates such as RoboFlow. Augmentation of datasets can also be used to improve the training. To build models for our specific domain, we plan on fine tuning pre-existing models, such as YOLOv8, Detectron2, and GroundingDINO. Finally, we can compare the performance of these models and select the best one to deploy. Current top models have a generalized focus, trying to perform well in all scenarios. The outcome of this project, therefore, is to deliver an improved obstacle detection prototype model, trained on an augmented dataset and optimized using advanced architectures, constrained to a particular domain. Quality evaluation will involve validation and testing against videos to ensure the robustness and reliability in various conditions. The goal of the measurable technical merits will be to achieve high accuracy, low false positive and negative rates, and real-time processing capabilities. An application of this project lies in its contribution to creating autonomous or semi autonomous vehicles. These vehicles would help minimize human load and increase operator decision-making efficiency. Additionally, fully autonomous vehicles would be able to perform well in dangerous locations, lowering the risk of human injury.}
+\abstract{As the world becomes more autonomous in various facets, one area that needs improvement is obstacle detection in autonomous vehicles. There is still a large degree of false classifications leading to unnecessary avoidance or fatal accidents. We can improve existing applications or target vehicle markets that have not been served with this technology, such as railway operation and drone flight paths. Humans often overlook details and patterns. Creating a model to detect and label obstacles allows users to focus on making a decision. The targeted problem is to detect and label obstacles in the constrained environment of a drone flight path. The scope of this project is to deliver a prototype model capable of performing obstacle detection on images and videos that can be applied to the domain of autonomous drone flight. Success can be measured in accuracy of prediction using classification metrics. To perform this task, a suitable dataset must first be obtained, either from previous projects such as the widely used COCO dataset, as well as from online aggregates such as RoboFlow. Augmentation of datasets can also be used to improve the training. To build models for our specific domain, we plan on fine tuning pre-existing models, such as YOLOv8, Detectron2, or others. Finally, we can compare the performance of these models and select the best one to deploy. Current top models have a generalized focus, trying to perform well in all scenarios. The outcome of this project, therefore, is to deliver an improved obstacle detection prototype model, trained on an augmented dataset and optimized using advanced architectures, constrained to a particular domain. Quality evaluation will involve validation and testing against videos to ensure the robustness and reliability in various conditions. The goal of the measurable technical merits will be to achieve high accuracy, low false positive and negative rates, and real-time processing capabilities. An application of this project lies in its contribution to creating autonomous or semi autonomous vehicles. These vehicles would help minimize human load and increase operator decision-making efficiency. Additionally, fully autonomous vehicles would be able to perform well in dangerous locations, lowering the risk of human injury.}
 
-\keywords{Obstacle detection, Computer Vision, Autonomous vehicles}
+\keywords{Obstacle detection, Computer Vision, Autonomous drone flight}
 
 \begin{document}
 \maketitle
@@ -57,23 +57,23 @@ The plan is to create a model to quickly and accurately detect obstacles on the 
 
 The primary functional requirement that the project should aim is the obstacle detection and labeling system that must be capable of accurately detecting and classifying multiple objects in real-time by utilizing models such as YOLOv8, Detectron2, and GroundingDINO.
 
-Our model should be able to handle video input and output labeled objects within each frame using bounding boxes and object-specific annotations. This should allow users to apply our application in various scenarios such as autonomous vehicles, drones, and various industrial automation where obstacle detection is significant to safety and operational efficiency. 
+Our model should be able to handle video input and output labeled objects within each frame using bounding boxes and object-specific annotations. This should allow users to apply our application in various scenarios such as autonomous vehicles, drones, and various industrial automation where obstacle detection is significant to safety and operational efficiency.
 
-Since the application needs to be maintained in high performance, the models should be evaluated by metrics such as accuracy, precision, and recall with high percentage, ensuring accurate identification and differentiation of obstacles in various environments. 
+Since the application needs to be maintained in high performance, the models should be evaluated by metrics such as accuracy, precision, and recall with high percentage, ensuring accurate identification and differentiation of obstacles in various environments.
 
-Eventually, the ability to process large datasets will also be the essential aspect for users to achieve their task, since it should manage extensive video or image data during both training and deployment phases. 
+Eventually, the ability to process large datasets will also be the essential aspect for users to achieve their task, since it should manage extensive video or image data during both training and deployment phases.
 
-Finally, the functional requirements also include the seamless integration of our models into autonomous systems which enables real-time data transfer and utilization. 
+Finally, the functional requirements also include the seamless integration of our models into autonomous systems which enables real-time data transfer and utilization.
 
 \subsubsection{AI Powered Requirements}
 
-For the AI powered requirements of the project, it should use pre-trained models of the architecture we have mentioned in functional requirements section (YOLOv8, Detectron2, and GroundingDINO), and fine-tuned to fit for detecting obstacles in our domain. This involves transfer learning and domain-specific training using augmented datasets to match constrained environments. 
+For the AI powered requirements of the project, it should use pre-trained models of the architecture we have mentioned in functional requirements section (YOLOv8, Detectron2, and GroundingDINO), and fine-tuned to fit for detecting obstacles in our domain. This involves transfer learning and domain-specific training using augmented datasets to match constrained environments.
 
-Also, to improve the model robustness, the models that we are implementing must be trained on customized and augmented datasets. We are using platforms such as RoboFlow and COCO datasets. The COCO dataset should be expanded with synthetic and augmented data to increase the diversity of obstacles and ensure better model performance in real-world conditions. 
+Also, to improve the model robustness, the models that we are implementing must be trained on customized and augmented datasets. We are using platforms such as RoboFlow and COCO datasets. The COCO dataset should be expanded with synthetic and augmented data to increase the diversity of obstacles and ensure better model performance in real-world conditions.
 
-Furthermore, our AI models must be optimized to reduce false positives and false negatives to obtain highly precise performance. This can be achieved by refining hyper-parameters during training, adjusting the thresholds, and may be utilize ensemble models to cross-validate and improve the reliability of obstacle detection. 
+Furthermore, our AI models must be optimized to reduce false positives and false negatives to obtain highly precise performance. This can be achieved by refining hyper-parameters during training, adjusting the thresholds, and may be utilize ensemble models to cross-validate and improve the reliability of obstacle detection.
 
-Finally, the final model of our project must support continuous learning, where new datasets from road environments can be incorporated into the model for retraining. This ensures the model stay up-to-date and adapt changing environments or new obstacle types so that it can maintain high performance over the time. 
+Finally, the final model of our project must support continuous learning, where new datasets from road environments can be incorporated into the model for retraining. This ensures the model stay up-to-date and adapt changing environments or new obstacle types so that it can maintain high performance over the time.
 
 \subsubsection{Data Requirements}
 The primary focus of this project is object detection with labeling. As such, the data will need to be images with labels. As for the size of the image, image type, and so on, the format does not matter as much as long as it is all consistent with each other. However, certain image sizes or formats may allow for faster computation. Additionally, the format of the data may change depending on the model. For example, YOLOv8 requires a `yaml' configuration file that is associated with the data, and Detectron2 requires the data to be in a COCO JSON format. The current plan is to obtain data from RoboFlow, an online aggregate of data, which allows the user to specify the format of the data when downloading. However, going down the line, a pipeline that converts the data to the appropriate format may be required.
@@ -83,12 +83,12 @@ This project consists of many deliverables in the form of documents, presentatio
 The deliverables are as follows:
 
 \begin{itemize}
-    \item Progress Reports with Meeting Minutes 
-    \item Workbooks and Project Report
-    \item Presentations
-    \item Source Code
-    \item Application Demo
-    \item Model Prototype
+	\item Progress Reports with Meeting Minutes
+	\item Workbooks and Project Report
+	\item Presentations
+	\item Source Code
+	\item Application Demo
+	\item Model Prototype
 \end{itemize}
 
 
@@ -101,7 +101,7 @@ Anomaly detection is another way to create good models for autonomous operation.
 
 \textcite{fang_computer_2021} implemented an obstacle avoidance and target tracking model using the ResNet architecture, achieving a 94\% accuracy on the validation set. \textcite{farheen_object_2022} created a similar project, focusing on autonomous wheel chair driving using low cost hardware. \textcite{said_obstacle_2023} found the existing neural architecture search model to be computationally expensive, so they created a new `fast' neural architecture search model for assisting people with limited visual senses. Testing against the COCO dataset and indoor object dataset, the new model outperformed the previous by 2.6\%.
 
-\textcite{jenefa_real-time_2023} worked on a real time DCNN model for railway obstacle detection with an overall 98\% accuracy running on low powered edge devices, such as the Raspberry Pi or NVidia Jetson boards. \textcite{noguchi_road_2024} released a recent paper that found road obstacles using `objectness' scores and `unknown' scores to create a multiple per pixel classification for unknown objects. \textcite{andreev_runway_2021} proposed a method for flight runway obstacle detection using object segmentation methods and background subtraction. The model was successful in detecting the correct object class in the tested simulation scenarios. 
+\textcite{jenefa_real-time_2023} worked on a real time DCNN model for railway obstacle detection with an overall 98\% accuracy running on low powered edge devices, such as the Raspberry Pi or NVidia Jetson boards. \textcite{noguchi_road_2024} released a recent paper that found road obstacles using `objectness' scores and `unknown' scores to create a multiple per pixel classification for unknown objects. \textcite{andreev_runway_2021} proposed a method for flight runway obstacle detection using object segmentation methods and background subtraction. The model was successful in detecting the correct object class in the tested simulation scenarios.
 
 Finally, we look at another aspect of effective obstacle detection, and that is to know the boundaries of what you need to actually detect. \textcite{wang_efficient_2018} worked on this issue by implementing a rail area detection model using CNN and they achieved 99.15\% mean pixel accuracy in finding the boundaries.
 
@@ -126,7 +126,7 @@ The primary topic for this project concerns obstacle detection and labeling for 
 The datasets will be obtained from public repositories, such as the COCO dataset, datasets on RoboFlow, public APIs, and so on. Additionally, some data may be collected manually. Once all of this data has been collected, they will be merged together as one master dataset.
 
 \subsubsection{Storage and Management Methods}
-As image data is relatively large, Google Drive will be used to store the data in folders. Additionally, certain formats may require additional files, such as configuration files, `yaml' files, and `csv' files, all of which will be stored in a similar method. Depending on the size of the final dataset, the data may also be compressed into a zip file to save space. 
+As image data is relatively large, Google Drive will be used to store the data in folders. Additionally, certain formats may require additional files, such as configuration files, `yaml' files, and `csv' files, all of which will be stored in a similar method. Depending on the size of the final dataset, the data may also be compressed into a zip file to save space.
 
 For the actual deployment, we plan on utilizing AWS buckets to store the data and for pipelining as it is the industry standard for storing large files on the cloud. Moreover, S3 buckets are easier to integrate with the rest of the AWS infrastructure.
 
@@ -135,13 +135,13 @@ As the data is all open-source, there are no specific usage mechanisms for them.
 
 
 \subsection{Project Development Methodology}
-The project follows a structured development methodology known as the Cross-Industry Standard Process for Data Mining (CRISP-DM), which can be seen in Figure \ref{fig:crispdm}. 
+The project follows a structured development methodology known as the Cross-Industry Standard Process for Data Mining (CRISP-DM), which can be seen in Figure \ref{fig:crispdm}.
 
 \begin{figure}[!htb]
-    \centering
-    \includegraphics[width=0.5\linewidth]{./images/CRISP-DM.png}
-    \caption{CRISP-DM}
-    \label{fig:crispdm}
+	\centering
+	\includegraphics[width=0.5\linewidth]{./images/CRISP-DM.png}
+	\caption{CRISP-DM}
+	\label{fig:crispdm}
 \end{figure}
 
 \subsubsection{Business Understanding}
@@ -149,7 +149,7 @@ Utilizing obstacle detection with computer vision can play a crucial role in hel
 
 
 \subsubsection{Data Understanding}
-For the data collection phase, the primary datasets will be sourced from public repositories such as the COCO dataset, RoboFlow, and other APIs that are focused on obstacle detection across various domains (Mainly on Autonomous Vehicle). The custom datasets will also be created and used by capturing images and videos in various environments. 
+For the data collection phase, the primary datasets will be sourced from public repositories such as the COCO dataset, RoboFlow, and other APIs that are focused on obstacle detection across various domains (Mainly on Autonomous Vehicle). The custom datasets will also be created and used by capturing images and videos in various environments.
 
 For the data exploration phase, we are going to conduct an initial EDA process to assess the distribution of the class, such as car, pedestrian, and more. Another important aspect of our data that we need to understand is its format. For example, YOLOv8 and GroundingDINO can use JPEG and PNG images with JSON annotations, while Detectron2 supports JPEG, PNG, and TIFF image formats, also using JSON annotations. It is essential that the data format is known, because the data will be combined into one master dataset. One issue that arises when doing so is differing formats among the data. As stated before, certain architectures are able to handle certain image types, label formats, etc. Additionally, data often come in different formats, such as image size, colorspace, image type, and annotation format. Due to this, we must understand the data formats first to ensure consistency when we combine our data together.
 
@@ -164,14 +164,14 @@ Images within the dataset can be cropped to eliminate parts that are irrelevant 
 
 \subsubsection{Modeling}
 
-In the model selection phase, the project is primarily implemented by three different well-known object detection model architectures, which are YOLOv8, Detectron2, and GroundingDINO. The YOLO architecture is a popular real-time object detection model with high speed and accuracy, which makes it suitable for a real-time detection application. Detectron2 is developed by Facebook AI Research, and the main advantage is the flexibility of selecting various backbone networks and the robustness of the model performance. Finally, GroundingDINO is a transformer-based architecture that shows strong performance in visual grounding tasks. 
+In the model selection phase, the project is primarily implemented by three different well-known object detection model architectures, which are YOLOv8, Detectron2, and GroundingDINO. The YOLO architecture is a popular real-time object detection model with high speed and accuracy, which makes it suitable for a real-time detection application. Detectron2 is developed by Facebook AI Research, and the main advantage is the flexibility of selecting various backbone networks and the robustness of the model performance. Finally, GroundingDINO is a transformer-based architecture that shows strong performance in visual grounding tasks.
 
 During the model training phase, these selected architectures will be trained and optimized for the obstacle detection tasks outlined in the project. Initially, transfer learning will be utilized by leveraging weights from a pre-trained model that have been trained on larger datasets such as COCO. This will allow models to preserve some important features while reducing the time and data required for training. Additionally, fine tuning these models may be required depending on the performance.
 
 
 
 \subsubsection{Evaluation}
-To evaluate the performance of each model, there are different techniques available to use. To compare the effectiveness of each YOLO model, \textcite{quach_evaluating_2023} utilize measurement scales such as Average Precision (AP) to help identify how well the model detects various objects. They also other standard evaluation metrics such as precision, recall, and F1-score to determine the model's performance in order to identify with how much certainty it can classify a certain image. Their evaluations are based on an ``Intersection of Union threshhold (IoU) or ground truth ratio to confirm whether the recognized object is true or false'' \parencite{quach_evaluating_2023}. We will obtain the precision, recall, and f1-scores to evaluate the model performance. Using the precision values, we will also calculate the mean average precision. This metric is considered as the ``consolidated metric for assessing model accuracy across varying categories and confidence levels'' \parencite{safaldin_improved_2024}. Alongside that, we will determine the Intersection of Union to determine how much similarity there is between the actual label and the predicted label. 
+To evaluate the performance of each model, there are different techniques available to use. To compare the effectiveness of each YOLO model, \textcite{quach_evaluating_2023} utilize measurement scales such as Average Precision (AP) to help identify how well the model detects various objects. They also other standard evaluation metrics such as precision, recall, and F1-score to determine the model's performance in order to identify with how much certainty it can classify a certain image. Their evaluations are based on an ``Intersection of Union threshhold (IoU) or ground truth ratio to confirm whether the recognized object is true or false'' \parencite{quach_evaluating_2023}. We will obtain the precision, recall, and f1-scores to evaluate the model performance. Using the precision values, we will also calculate the mean average precision. This metric is considered as the ``consolidated metric for assessing model accuracy across varying categories and confidence levels'' \parencite{safaldin_improved_2024}. Alongside that, we will determine the Intersection of Union to determine how much similarity there is between the actual label and the predicted label.
 
 \subsubsection{Deployment}
 The product deployment will consist of the model that detects obstacles and objects the most accurately. The model will be trained on a dataset containing autonomous vehicles which would accurately detect if there are any obstacles or objects present if the car is in motion.
@@ -181,29 +181,29 @@ The product deployment will consist of the model that detects obstacles and obje
 % data sources, data warehouse, ETL, ELT, data transfers with pipeline, and deliverables
 
 % data source aside, do we even have a start for the other steps
-For this project, the image data and labels will be sourced from previously established datasets with research, such as the COCO dataset, as well as more targeted data from online aggregates like Roboflow. This data will then be stored in an AWS S3 bucket. For ETL and pipelining, we will focus on extracting the data from the bucket, transforming them to a single format (image type, image size, colorspace, etc.), then loading it into the data warehouse. 
+For this project, the image data and labels will be sourced from previously established datasets with research, such as the COCO dataset, as well as more targeted data from online aggregates like Roboflow. This data will then be stored in an AWS S3 bucket. For ETL and pipelining, we will focus on extracting the data from the bucket, transforming them to a single format (image type, image size, colorspace, etc.), then loading it into the data warehouse.
 
 \subsection{Project Organization Plan}
 To organize the project, a work breakdown structure was creating by decomposing the project hierarchically and incrementally into phases, deliverables, and work packages. The phases, deliverables, and work packages are as follows:
 
 \begin{enumerate}
-    \item Business Understanding: This phase is split into four main work packages: Defining the problem, performing literature and technology surveys on the topic, determining the data source, and creating the project plan framework.
- 
-    \item Data Understanding: This phase it split into two packages: Understanding the image data and initial exploratory data analysis. Understanding the image data is a hierarchical system, where the sub packages involves understanding the format of the data, as well as understanding the images themselves in terms of factors such as image size, colorspace, and image type.
-    
-    \item Data Preparation: This phase involves two packages: Preparing the data and Splitting the data. Preparing the data is split up into various, incremental tasks: Collecting the data, reformatting the data to be consistent with each other, cleaning the data, transforming and augmenting the data, and labeling the data if needed. Once this is done, we can split the data into train, validation, and testing sets.
-    
-    \item Modeling: The modeling phase has 3 main packages: Model Research, Modeling and Validation, and Evaluation. Model Research is split into 3 sub tasks: researching YOLOv8, Detectron2, and GroundingDINO. Once this is completed we can move on to the modeling and validation step, where these architectures will go through transfer learning and fine tuning. Finally, we can evaluate the models by comparing their performances, and select the best performing one.
-    
-    \item Deployment: The deployment phase has two deliverables: Deploying the project and data onto AWS as a backend prototype, and the final report submission. 
+	\item Business Understanding: This phase is split into four main work packages: Defining the problem, performing literature and technology surveys on the topic, determining the data source, and creating the project plan framework.
+
+	\item Data Understanding: This phase it split into two packages: Understanding the image data and initial exploratory data analysis. Understanding the image data is a hierarchical system, where the sub packages involves understanding the format of the data, as well as understanding the images themselves in terms of factors such as image size, colorspace, and image type.
+
+	\item Data Preparation: This phase involves two packages: Preparing the data and Splitting the data. Preparing the data is split up into various, incremental tasks: Collecting the data, reformatting the data to be consistent with each other, cleaning the data, transforming and augmenting the data, and labeling the data if needed. Once this is done, we can split the data into train, validation, and testing sets.
+
+	\item Modeling: The modeling phase has 3 main packages: Model Research, Modeling and Validation, and Evaluation. Model Research is split into 3 sub tasks: researching YOLOv8, Detectron2, and GroundingDINO. Once this is completed we can move on to the modeling and validation step, where these architectures will go through transfer learning and fine tuning. Finally, we can evaluate the models by comparing their performances, and select the best performing one.
+
+	\item Deployment: The deployment phase has two deliverables: Deploying the project and data onto AWS as a backend prototype, and the final report submission.
 \end{enumerate}
 
 The work breakdown structure can be seen in Figure \ref{fig:wbs}.
 \begin{figure}[!htb]
-    \centering
-    \includegraphics[width=1\linewidth]{./images/WBS_updated.png}
-    \caption{Work Breakdown Structure}
-    \label{fig:wbs}
+	\centering
+	\includegraphics[width=1\linewidth]{./images/WBS_updated.png}
+	\caption{Work Breakdown Structure}
+	\label{fig:wbs}
 \end{figure}
 
 
@@ -214,49 +214,49 @@ Deep learning is generally computationally intensive, especially when performing
 We plan on utilizing Google Colab for initial testing. Google Colab is a free-to-use, cloud-based Jupyter Notebook with access to GPU and TPU resources. The free-to-use version has limited resources, so depending on the process, a paid plan may be required. Additionally, Google Colab is integrated with Google Drive, allowing data storage and collaboration through the use of shared drives.
 
 \begin{table}[!htb]
-    \centering
-    \caption{Hardware Requirements}
-    \begin{tabular}{cccc}
-    \hline
-         Service& Configuration & Purpose & Cost \\ 
-         \hline
-         Local Machines & various & Coding platform & Owned (free)\\
-         Google Colab & T4 GPU (16GB RAM) & Compute platform & Free \\
-         \hline
-    \end{tabular}
-    % \tablenote{*Paid version available, A100 GPU utilizes approximately 11 compute units/hour}
-    \label{tab:hardware}
+	\centering
+	\caption{Hardware Requirements}
+	\begin{tabular}{cccc}
+		\hline
+		Service        & Configuration     & Purpose          & Cost         \\
+		\hline
+		Local Machines & various           & Coding platform  & Owned (free) \\
+		Google Colab   & T4 GPU (16GB RAM) & Compute platform & Free         \\
+		\hline
+	\end{tabular}
+	% \tablenote{*Paid version available, A100 GPU utilizes approximately 11 compute units/hour}
+	\label{tab:hardware}
 \end{table}
 
 \subsubsection{Software}
 To preprocess the data and create the models, various software tools must be utilized. The primary coding language will be Python. In addition to Python, various libraries and modules related to modeling and data preprocessing will be used. We also use GitHub and Google Colab for collaborative coding, and Google Docs and Overleaf for report writing A comprehensive list of the software used can be seen in Table \ref{tab:software}.
 
-There are no specific licenses require for the aforementioned tools and platforms. The majority of these tools are open-source, or have free versions for both personal and academic use. Businesses and organizations may have different requirements such as having to purchase licenses, but this does not apply for our use case. 
+There are no specific licenses require for the aforementioned tools and platforms. The majority of these tools are open-source, or have free versions for both personal and academic use. Businesses and organizations may have different requirements such as having to purchase licenses, but this does not apply for our use case.
 
 \begin{table}[!htb]
-    \centering
-    \caption{Software Requirements}
-    \begin{tabular}{cccc}
-    \hline
-         Service& Configuration  &Purpose& Cost \\
-         \hline
-         Python & Version 3.11  &Coding platform& Free \\
-         Pandas & Version 2.1.1  &Working with datasets& Free \\
-         NumPy & Version 1.26.1  &Advanced mathematics& Free \\
-         PyTorch & Version 2.4& Modeling, Data Preprocessing& Free\\
-         OpenCV  & Version 4.10& Image Processing & Free\\
-         Ultralytics & Version 8.3.2& Modeling (with YOLOv8)& Free\\
-         Detectron2 & Version 0.6& Modeling (with Detectron2)& Free\\
-         Jupyter Notebook & Version 6.5.4  &Code REPL platform& Free\\
-         Google Colab & N/A  &Code REPL platform& Free\\
-         Kaggle Notebook & N/A  &Code REPL platform& Free\\
-         GitHub & N/A  &Code collaboration& Free \\
-         Overleaf & N/A  &Report writing collaboration& \$9/month \\ 
-         ProjectLibre & N/A  &Gantt and PERT charts& Free \\ 
-         \hline
-    \end{tabular}
-    % \tablenote{*Paid version available}
-    \label{tab:software}
+	\centering
+	\caption{Software Requirements}
+	\begin{tabular}{cccc}
+		\hline
+		Service          & Configuration  & Purpose                      & Cost      \\
+		\hline
+		Python           & Version 3.11   & Coding platform              & Free      \\
+		Pandas           & Version 2.1.1  & Working with datasets        & Free      \\
+		NumPy            & Version 1.26.1 & Advanced mathematics         & Free      \\
+		PyTorch          & Version 2.4    & Modeling, Data Preprocessing & Free      \\
+		OpenCV           & Version 4.10   & Image Processing             & Free      \\
+		Ultralytics      & Version 8.3.2  & Modeling (with YOLOv8)       & Free      \\
+		Detectron2       & Version 0.6    & Modeling (with Detectron2)   & Free      \\
+		Jupyter Notebook & Version 6.5.4  & Code REPL platform           & Free      \\
+		Google Colab     & N/A            & Code REPL platform           & Free      \\
+		Kaggle Notebook  & N/A            & Code REPL platform           & Free      \\
+		GitHub           & N/A            & Code collaboration           & Free      \\
+		Overleaf         & N/A            & Report writing collaboration & \$9/month \\
+		TeamGantt        & N/A            & Gantt charts                 & Free      \\
+		\hline
+	\end{tabular}
+	% \tablenote{*Paid version available}
+	\label{tab:software}
 \end{table}
 
 \subsection{Project Schedule}
@@ -269,24 +269,24 @@ Project management is required to make sure projects are completed on time. To d
 
 \section{Project Management Charts}
 \begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{images/gantt/gantt1.png}
-    \caption{Gantt Chart details}
-    \label{fig:gantt}
+	\centering
+	\includegraphics[width=\linewidth]{images/gantt/gantt1.png}
+	\caption{Gantt Chart details}
+	\label{fig:gantt}
 \end{figure}
 \begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{images/gantt/gantt2.png}
-    \includegraphics[width=\linewidth]{images/gantt/gantt3.png}
-    \caption{Gantt Chart Calendar view}
-    \label{fig:gantt2}
+	\centering
+	\includegraphics[width=\linewidth]{images/gantt/gantt2.png}
+	\includegraphics[width=\linewidth]{images/gantt/gantt3.png}
+	\caption{Gantt Chart Calendar view}
+	\label{fig:gantt2}
 \end{figure}
 
 \begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{images/pert.png}
-    \caption{PERT chart}
-    \label{fig:pert}
+	\centering
+	\includegraphics[width=\linewidth]{images/pert.png}
+	\caption{PERT chart}
+	\label{fig:pert}
 \end{figure}
 
 \end{document}
