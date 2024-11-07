@@ -87,7 +87,7 @@ The deliverables are as follows:
 	\item Progress Reports with Meeting Minutes
 	\item Workbooks and Project Report
 	\item Presentations
-    \item Data pipeline
+	\item Data pipeline
 	\item Source Code
 	\item Application Demo
 	\item Model Prototype
@@ -273,18 +273,18 @@ After obtaining the data, we will perform image augmentations such as flipping, 
 
 \subsection{Data Collection}
 The data is the VisDrone dataset. It consists of 288 video clips with 261,908 frames and 10,209 static images from various drone-mounted cameras. The dataset showcases varying cities in China, urban and rural communities, various objects, and different level of crowd density. Due to the current limitations of the data pipeline, we are working with only the training dataset of the VisDrone data, and are splitting that into train, validation, and test. For more details, see the Data Pipeline section.
-The data taken contains 6471 images and their associated labels, with the following 10 classes: 
+The data taken contains 6471 images and their associated labels, with the following 10 classes:
 \begin{itemize}
-\item Awning-Tricycle
-\item Bicycle
-\item Bus
-\item Car
-\item Motor
-\item Pedestrian
-\item People
-\item Tricycle
-\item Truck
-\item Van
+	\item Awning-Tricycle
+	\item Bicycle
+	\item Bus
+	\item Car
+	\item Motor
+	\item Pedestrian
+	\item People
+	\item Tricycle
+	\item Truck
+	\item Van
 \end{itemize}
 
 % Present samples from raw dataset (before preprocessing)
@@ -292,12 +292,12 @@ The data taken contains 6471 images and their associated labels, with the follow
 
 The images found in Figure \ref{fig:sample_images} show examples from our raw dataset.
 \begin{figure}
-    \centering
-    \includegraphics[width=0.33\linewidth]{images/sample_train.png}
-    \includegraphics[width=0.33\linewidth]{images/sample_valid.png}
-    \includegraphics[width=0.32\linewidth]{images/sample_test.png}
-    \caption{Sample images from each split}
-    \label{fig:sample_images}
+	\centering
+	\includegraphics[width=0.33\linewidth]{images/sample_train.png}
+	\includegraphics[width=0.33\linewidth]{images/sample_valid.png}
+	\includegraphics[width=0.32\linewidth]{images/sample_test.png}
+	\caption{Sample images from each split}
+	\label{fig:sample_images}
 \end{figure}
 
 
@@ -306,29 +306,29 @@ For image data, preprocessing and transformations go hand in hand. We define ima
 
 As such, our preprocessing steps include resizing the image, normalizing the image, and using color jittering. Resizing an image is helpful for a multitude of reasons. Depending on the size of the image, it can increase or decrease the efficiency of the model. We downsize the images to improve the efficiency of the model while still maintaining its important features. In the case for YOLO, we resized the images to 640x640 as this is one of the common values used.
 
-Normalization is used for many reasons. The first reason is to scale each pixel value of our image down, allowing for models to learn quicker and keeping weight updates smaller which helps with gradient descent. We used a mean and standard deviation of 0.5 to normalize our pixel values to a value between -1 and 1. 
+Normalization is used for many reasons. The first reason is to scale each pixel value of our image down, allowing for models to learn quicker and keeping weight updates smaller which helps with gradient descent. We used a mean and standard deviation of 0.5 to normalize our pixel values to a value between -1 and 1.
 
 Color jittering is used to change the hue, saturation, and brightness of an image. In our case, color jittering is used to try to emulate environmental conditions, such as day and night, snow, rain, and so on. We adjust the hue, saturation, and brightness of our images by 0.015, 0.7, and 0.4 respectively.
 
 
 
 \subsection{Data Transformation}
-After the dataset has been pre-processed, we proceeded with the data transformation process. we have applied several transformation techniques to increase the robustness and the diversity of the training images. The major transformation tasks include translation, rescaling, and mirroring.  
+After the dataset has been pre-processed, we proceeded with the data transformation process. we have applied several transformation techniques to increase the robustness and the diversity of the training images. The major transformation tasks include translation, rescaling, and mirroring.
 
-For the translation, it shifts the image horizontally and vertically by a fraction of the image size which allows the model to detect objects positioned in various parts of the frame or even partially visible. Here, we set the variable to be 0.1 which means that the training image will be shifted by 10\% of its image size. 
+For the translation, it shifts the image horizontally and vertically by a fraction of the image size which allows the model to detect objects positioned in various parts of the frame or even partially visible. Here, we set the variable to be 0.1 which means that the training image will be shifted by 10\% of its image size.
 
-In the case of rescaling, it augments the image by simulating objects at different distances from the camera. Thus, it helps to standardize the size of the object in the image, which make the model to detect the object regardless of the object size. In our model, we set the parameter to be 0.5, which means it gives 50\% variation on scaling to zoom in or out on the object. 
+In the case of rescaling, it augments the image by simulating objects at different distances from the camera. Thus, it helps to standardize the size of the object in the image, which make the model to detect the object regardless of the object size. In our model, we set the parameter to be 0.5, which means it gives 50\% variation on scaling to zoom in or out on the object.
 
 Mirroring, or flipping left and right, is used to flip the image. This is done to give more representations for the same data, increasing the dataset's diversity. For our use case, we set the parameter to be 0.5, meaning that this augmentation is applied 50\% of the time.
 
-Figure \ref{fig:sample_images_transformed} shows examples of our images after the above transformations are applied. 
+Figure \ref{fig:sample_images_transformed} shows examples of our images after the above transformations are applied.
 \begin{figure}
-    \centering
-    \includegraphics[width=0.33\linewidth]{images/sample_train_t.png}
-    \includegraphics[width=0.33\linewidth]{images/sample_valid_t.png}
-    \includegraphics[width=0.32\linewidth]{images/sample_test_t.png}
-    \caption{Sample images from each split with transformations applied}
-    \label{fig:sample_images_transformed}
+	\centering
+	\includegraphics[width=0.33\linewidth]{images/sample_train_t.png}
+	\includegraphics[width=0.33\linewidth]{images/sample_valid_t.png}
+	\includegraphics[width=0.32\linewidth]{images/sample_test_t.png}
+	\caption{Sample images from each split with transformations applied}
+	\label{fig:sample_images_transformed}
 \end{figure}
 
 
@@ -339,40 +339,40 @@ Once the data has been pre-processed and transformed, we will split it into a tr
 For image data, there is not much in the way of statistics. However, we did find some facts about the dataset just to get a feel for it. These facts can be seen in Table \ref{tab:facts}. These facts show that the typical size of a bounding box is very small and there are many of them per image. This may pose a challenge for us in training. In Figure \ref{fig:cls_distrib}, we show the distribution for each class by train, validation, and test split. We note that it seems like "car" is the most common label, while awning tricycles are the least common. For validation and test, the distributions seem to be even.
 
 \begin{table}[!htb]
-    \centering
-    \begin{tabular}{lr}
-        \hline
-        \textbf{Metric} & \textbf{Value} \\
-        \hline
-        Average image area & 1,573,546.484006 px\textsuperscript{2} \\
-        Average bounding box area & 2,493.606550 px\textsuperscript{2} \\
-        Ratio of bounding box area to image area & 0.158470\% \\
-        Average number of classifications per image & 53 \\
-        \hline
-        \textbf{Image sizes} & \\
-        \hline
-        Maximum image size & 3,000,000 px\textsuperscript{2} \\
-        Minimum image size & 172,800 px\textsuperscript{2} \\
-        Most common image size & 1400 x 1050 px\textsuperscript{2} \\
-        \hline
-        \textbf{Bounding box sizes} & \\
-        \hline
-        Maximum bounding box size & 329,847 px\textsuperscript{2} \\
-        Minimum bounding box size & 4 px\textsuperscript{2} \\
-        Most common bounding box size & 11 x 11 px\textsuperscript{2} \\
-        \hline
-    \end{tabular}
-    \caption{Dataset facts}
-    \label{tab:facts}
+	\centering
+	\begin{tabular}{lr}
+		\hline
+		\textbf{Metric}                             & \textbf{Value}                         \\
+		\hline
+		Average image area                          & 1,573,546.484006 px\textsuperscript{2} \\
+		Average bounding box area                   & 2,493.606550 px\textsuperscript{2}     \\
+		Ratio of bounding box area to image area    & 0.158470\%                             \\
+		Average number of classifications per image & 53                                     \\
+		\hline
+		\textbf{Image sizes}                        &                                        \\
+		\hline
+		Maximum image size                          & 3,000,000 px\textsuperscript{2}        \\
+		Minimum image size                          & 172,800 px\textsuperscript{2}          \\
+		Most common image size                      & 1400 x 1050 px\textsuperscript{2}      \\
+		\hline
+		\textbf{Bounding box sizes}                 &                                        \\
+		\hline
+		Maximum bounding box size                   & 329,847 px\textsuperscript{2}          \\
+		Minimum bounding box size                   & 4 px\textsuperscript{2}                \\
+		Most common bounding box size               & 11 x 11 px\textsuperscript{2}          \\
+		\hline
+	\end{tabular}
+	\caption{Dataset facts}
+	\label{tab:facts}
 \end{table}
 
 
 
 \begin{figure}[!htb]
-    \centering
-    \includegraphics[width=0.75\linewidth]{class_distribution.png}
-    \caption{Class Distribution by Split}
-    \label{fig:cls_distrib}
+	\centering
+	\includegraphics[width=0.75\linewidth]{class_distribution.png}
+	\caption{Class Distribution by Split}
+	\label{fig:cls_distrib}
 \end{figure}
 
 \section{Model Development}
@@ -381,49 +381,49 @@ For modeling, we will be using transfer learning on state of the art object dete
 
 Detectron2 on the other hand, is based on two shot detection algorithms such as Faster RCNN and Mask RCNN. It utilizes a CNN backbone with a feature pyramid network, creates regions of interest using a region proposal network, then passes these in to region of interest heads to make predictions.
 
-According to \textcite{yaseen2024YOLOv8},  YOLOv8 is a single-shot detector that processes the entire image in one pass, which make YOLOv8 possible to handle both classification and localization within each grid cell. The backbone of YOLOv8 is a advanced convolutional Neural Network and the neck of YOLOv8 architecture uses Feature Pyramid Networks (FPN) integrating with Path Aggregation Network (PAN) structure, which allows the model to handle multi-scale feature extraction from the input image. This architecture aggregates the features from multiple layers, ensuring that both high and low level features also be used in the final prediction. Finally in the head part of the architecture, it generates final prediction including bounding box coordinates, confidence scores, and class labels. The key features of YOLOv8 is that unlike typical object detection models, YOLOv8 adopts an anchor free approach. Instead of predefining anchor boxes, it directly predicts bounding boxes, which simplifies the complexity and improves detection accuracy for irregularly shaped objects. Pictured in Figure \ref{fig:YOLOv8-architecture} is the architecture for YOLOv8.
+According to \textcite{yaseen_what_2024},  YOLOv8 is a single-shot detector that processes the entire image in one pass, which make YOLOv8 possible to handle both classification and localization within each grid cell. The backbone of YOLOv8 is a advanced convolutional Neural Network and the neck of YOLOv8 architecture uses Feature Pyramid Networks (FPN) integrating with Path Aggregation Network (PAN) structure, which allows the model to handle multi-scale feature extraction from the input image. This architecture aggregates the features from multiple layers, ensuring that both high and low level features also be used in the final prediction. Finally in the head part of the architecture, it generates final prediction including bounding box coordinates, confidence scores, and class labels. The key features of YOLOv8 is that unlike typical object detection models, YOLOv8 adopts an anchor free approach. Instead of predefining anchor boxes, it directly predicts bounding boxes, which simplifies the complexity and improves detection accuracy for irregularly shaped objects. Pictured in Figure \ref{fig:YOLOv8-architecture} is the architecture for YOLOv8.
 
-YOLOv11 is similar in concept for YOLOv8. According to the Ultralytics documentation \parencite{yolo11_ultralytics}, YOLOv11 has enhanced feature extraction due to its improved backbone and neck, better speed and efficiency due to its new architectures and pipelines, and fewer parameters than its previous versions while having better accuracy. Rather than the C2F blocks that YOLOv8 uses, YOLOv11 replaces them with C3k2 blocks, which are an improved version of the C2F block in terms of feature representation and efficiency due to its usage of split feature maps and smaller kernel sizes. Additionally, YOLOv11 adds an attention mechanism, known as the C2PSA block, to the end of its backbone; something that was non existent in previous versions. 
+YOLOv11 is similar in concept for YOLOv8. According to the Ultralytics documentation \parencite{yolo11_ultralytics}, YOLOv11 has enhanced feature extraction due to its improved backbone and neck, better speed and efficiency due to its new architectures and pipelines, and fewer parameters than its previous versions while having better accuracy. Rather than the C2F blocks that YOLOv8 uses, YOLOv11 replaces them with C3k2 blocks, which are an improved version of the C2F block in terms of feature representation and efficiency due to its usage of split feature maps and smaller kernel sizes. Additionally, YOLOv11 adds an attention mechanism, known as the C2PSA block, to the end of its backbone; something that was non existent in previous versions.
 
 Unlike YOLO, Detectron2 is uses two shot detection, meaning that its first pass generates regions of interest, and the second pass refines the proposals, extracts features, classifies, and creates bounding boxes for those regions. Detectron2 is primarily based on Mask RCNN, which is an extension of Faster RCNN. In this implementation, an input image is passed through a CNN backbone to extract its features. Then, this feature map is first passed into the region proposal network to obtain regions of interest, and both the feature map and regions of interests are passed into an RoI pooling layer to extract features from the regions of interest. For the typical Faster RCNN, the output from the RoI pooling layer is passed in to fully connected layers, outputting bounding box coordinates and their associated labels. For Mask RCNN, the feature map is also passed into another CNN to generate segmentation masks. Figure \ref{fig:Detectron2-architecture} features the basic architecture for Detectron2.
 
 
 The models we will be using are as follows: YOLOv8, YOLOv11, and Detectron2 using Faster RCNN and RetinaNet. For future tests, we will test with different architecture sizes for YOLO and different models for Detectron2 from the model zoo featured on their GitHub page, since each architecture has its own advantages and disadvantages.
 
- \begin{figure}[!htb]
-     \centering
-     \includegraphics[width=0.75\linewidth]{images/YOLOv8_architecture.png}
-     \caption{Basic architecture of YOLOv8. 
-     \textit{Note}. The figure is taken from \textcite{Ranjan2024YOLOv8_11Comparison}}
-     \label{fig:YOLOv8-architecture}
- \end{figure}
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.75\linewidth]{images/YOLOv8_architecture.png}
+	\caption{Basic architecture of YOLOv8.
+		\textit{Note}. The figure is taken from \textcite{sapkota_comparing_2024}}
+	\label{fig:YOLOv8-architecture}
+\end{figure}
 
- \begin{figure}[!htb]
-     \centering
-     \includegraphics[width=0.75\linewidth]{images/Detectron2_architecture.png}
-     \caption{Basic architecture of Detectron2. \textit{Note}. The figure is taken from \textcite{Marc2022Detectron2}}
-     \label{fig:Detectron2-architecture}
- \end{figure}
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.75\linewidth]{images/Detectron2_architecture.png}
+	\caption{Basic architecture of Detectron2. \textit{Note}. The figure is taken from \textcite{ackermann_automated_2022}}
+	\label{fig:Detectron2-architecture}
+\end{figure}
 
 
 \subsection{Model Supports}
-Given the high computational demands of deep learning tasks with image data, especially complex models such as YOLO and Detectron2, where it mandatorily requires GPU computational power, access to environments with robust GPU resources is important for efficient model training and evaluation. For this project, we will primarily be using Google Colab and Kaggle Notebooks due to their free GPU access, which accelerates the training and testing of our models. 
+Given the high computational demands of deep learning tasks with image data, especially complex models such as YOLO and Detectron2, where it mandatorily requires GPU computational power, access to environments with robust GPU resources is important for efficient model training and evaluation. For this project, we will primarily be using Google Colab and Kaggle Notebooks due to their free GPU access, which accelerates the training and testing of our models.
 
 
 \subsubsection{Hardware environment}
-For the hardware environment, Google Colab provides access to NVIDIA T4 GPU, which enable us to have strong performance for deep learning tasks, especially for large image datasets. Also, Kaggle notebook offers NVIDIA P100 GPU, which allow us to handle complex and computationally heavy models such as YOLO and Detectron2. Kaggle notebook has 30 hours of free GPU usage that refreshes every week. This makes it a useful tool when taking into consideration the computational cost of YOLO and Detectron. 
+For the hardware environment, Google Colab provides access to NVIDIA T4 GPU, which enable us to have strong performance for deep learning tasks, especially for large image datasets. Also, Kaggle notebook offers NVIDIA P100 GPU, which allow us to handle complex and computationally heavy models such as YOLO and Detectron2. Kaggle notebook has 30 hours of free GPU usage that refreshes every week. This makes it a useful tool when taking into consideration the computational cost of YOLO and Detectron.
 
 \subsubsection{Frameworks}
-For frameworks we are using, both Google Colab and Kaggle Notebooks support PyTorch and TensorFlow. Thus, for this project, we will primarily use PyTorch due to its flexibility and compatibility with the obstacle detection task. We will also use the Ultralytics YOLO library, which integrates smoothly with PyTorch, so that it makes training and deploying the YOLO models simpler. 
+For frameworks we are using, both Google Colab and Kaggle Notebooks support PyTorch and TensorFlow. Thus, for this project, we will primarily use PyTorch due to its flexibility and compatibility with the obstacle detection task. We will also use the Ultralytics YOLO library, which integrates smoothly with PyTorch, so that it makes training and deploying the YOLO models simpler.
 
 
-The figure \ref{fig:mlFlowchart} represents general platform architecture view from VisDrone dataset to model evaluation. The pipeline begins with the VisDrone Dataset and go through the data pipeline and stored in an AWS S3 bucket. Then four models are trained on the processed data. The training process is proceeding in Google Colab and Kaggle Notebook. Finally, models will be optimized and we can evaluate the model from the results we get. 
+The figure \ref{fig:mlFlowchart} represents general platform architecture view from VisDrone dataset to model evaluation. The pipeline begins with the VisDrone Dataset and go through the data pipeline and stored in an AWS S3 bucket. Then four models are trained on the processed data. The training process is proceeding in Google Colab and Kaggle Notebook. Finally, models will be optimized and we can evaluate the model from the results we get.
 
 \begin{figure}[!htb]
-    \centering
-    \includegraphics[width=0.6\linewidth]{images/modelsupportDiagram.png}
-    \caption{Platform architecture and model flowchart}
-    \label{fig:mlFlowchart}
+	\centering
+	\includegraphics[width=0.6\linewidth]{images/modelsupportDiagram.png}
+	\caption{Platform architecture and model flowchart}
+	\label{fig:mlFlowchart}
 \end{figure}
 
 
@@ -435,23 +435,23 @@ As mentioned in the model proposal section, YOLOv8 is a single shot detector bui
 
 
 \subsubsection{Strengths and Limitations}
-Based on the findings of multiple studies, each model shows different strengths and limitations. YOLOv8 generally shows high speed and efficiency due to its single-shot detectors, makes tasks that requires rapid object detection such as real-time video or image analysis easier. However, while YOLOv8 has strong strength on its speed, the accuracy may be lower than the complex models such as Detectron2. This may result in limiting the applications where precise object detection is required. 
+Based on the findings of multiple studies, each model shows different strengths and limitations. YOLOv8 generally shows high speed and efficiency due to its single-shot detectors, makes tasks that requires rapid object detection such as real-time video or image analysis easier. However, while YOLOv8 has strong strength on its speed, the accuracy may be lower than the complex models such as Detectron2. This may result in limiting the applications where precise object detection is required.
 
 Due to its more lightweight nature, YOLO models tend to be much faster than the likes of Detectron2. However, this speed sacrifices some of its peformance. Both YOLOv8 and YOLOv11 share these strengths and limitations, but YOLOv11, due to its improved architecture, boasts greater speed and performance.
 
-On the other hand, due to its two-shots detectors which include RPN, this aspects make Detectron2 as well known for its high accuracy, especially in tasks that need to segment or detect detailed objects where the objects are densely packed. However, this strength of precision and accuracy comes at the cost of slower inference times compared to YOLO models because of its complex architecture. 
+On the other hand, due to its two-shots detectors which include RPN, this aspects make Detectron2 as well known for its high accuracy, especially in tasks that need to segment or detect detailed objects where the objects are densely packed. However, this strength of precision and accuracy comes at the cost of slower inference times compared to YOLO models because of its complex architecture.
 
 \textcite{wadhwa_comparison_2023} compares the performance of YOLOv8 and Detectron2 on crowd counting techniques. They found that while Detectron2 had better accuracy, YOLOv8 was able to detect more objects. Furthermore, YOLOv8 was faster in terms of computation time. This means that there is a trade off between performance and speed.
 
 This concept can be extended to YOLOv11, which is a newer version than YOLOv8. In other words, YOLOv11 should also have the performance vs speed trade off when compared to Detectron2. While it may seem like YOLOv11 is better than YOLOv8 in every way given that it is the newer version, this is actually not the case.
 
-According to the research of \textcite{Ranjan2024YOLOv8_11Comparison}, the author compares YOLOv11 and YOLOv8 on the segmentation task, the result shows that YOLOv11 illustrates better performance overall, but YOLOv8 has a slightly faster inference time. 
+According to the research of \textcite{sapkota_comparing_2024}, the author compares YOLOv11 and YOLOv8 on the segmentation task, the result shows that YOLOv11 illustrates better performance overall, but YOLOv8 has a slightly faster inference time.
 
-On the other hand, in the research, \textcite{Mujadded2024YOLOv11}, it also compares YOLOv11 with YOLOv8 and the result showed that YOLOv11 outperformed YOLOv8 across every metrics. 
+On the other hand, in the research, \textcite{alif_yolov11_2024}, it also compares YOLOv11 with YOLOv8 and the result showed that YOLOv11 outperformed YOLOv8 across every metrics.
 
 \subsubsection{Justifications for Model Selection}
 
-According to the existing research elaborated on the previous section, YOLO models show relatively better performance on detecting high number of objects efficiently, while Detectron2 demonstrates relatively better accuracy, particularly in more complex environments. However, there are some contradictory results between the performance of YOLOv8 and YOLOv11 that we wanted to confirm. Thus, by experimenting with YOLOv8, YOLOv11, and Detectron2, we aim to check whether these results on the research hold true in our specific application domain so that we can select the model for our final deployment that best aligns with the real-time processing needs and accuracy. 
+According to the existing research elaborated on the previous section, YOLO models show relatively better performance on detecting high number of objects efficiently, while Detectron2 demonstrates relatively better accuracy, particularly in more complex environments. However, there are some contradictory results between the performance of YOLOv8 and YOLOv11 that we wanted to confirm. Thus, by experimenting with YOLOv8, YOLOv11, and Detectron2, we aim to check whether these results on the research hold true in our specific application domain so that we can select the model for our final deployment that best aligns with the real-time processing needs and accuracy.
 
 Detectron2 has different backbone architectures available in their model zoo. We chose to use RetinaNet as one backbone due to its speed and accuracy. RetinaNet, however, is also a one shot detector, just like YOLO. Due to this, we also chose to use Faster RCNN as the backbone because of its nature as a two shot detector.
 
@@ -467,19 +467,19 @@ Intersection over union: IoU is another popular metric used to gauge how well th
 Results can be summarized in Table \ref{tab:results}. The IoU for the YOLO models was far greater than the Detectron models. For our initial testing, we used mostly default values for all models. These results show us that the defaults for the YOLO trainers are more sensible and allow the model to train much better. The mAP scores for all models are relatively low, this can be explained by the fact that our bounding box sizes are so small compared to our image sizes, that the predicted widths and heights have a high margin of error.
 
 \begin{table}[!htb]
-    \centering
-    \begin{tabular}{lccc}
-    \hline
-         Model&  mAP50&  mAP50-95& IoU\\
-    \hline
-         YOLOv8&   0.305&  0.175& 0.68\\
-         YOLOv11&  0.404&   0.241& 0.69\\
-         Detectron2 (retinanet)&  0.205&  0.126&  0.14\\
-         Detectron2 (faster rcnn)&   0.238&  0.145&  0.22\\
-    \hline
-    \end{tabular}
-    \caption{Metrics result of the models}
-    \label{tab:results}
+	\centering
+	\begin{tabular}{lccc}
+		\hline
+		Model                    & mAP50 & mAP50-95 & IoU  \\
+		\hline
+		YOLOv8                   & 0.305 & 0.175    & 0.68 \\
+		YOLOv11                  & 0.404 & 0.241    & 0.69 \\
+		Detectron2 (retinanet)   & 0.205 & 0.126    & 0.14 \\
+		Detectron2 (faster rcnn) & 0.238 & 0.145    & 0.22 \\
+		\hline
+	\end{tabular}
+	\caption{Metrics result of the models}
+	\label{tab:results}
 \end{table}
 
 \subsection{Data Pipeline Demo}
@@ -487,17 +487,17 @@ Results can be summarized in Table \ref{tab:results}. The IoU for the YOLO model
 Using an AWS API Gateway, we send a link to the  pipeline. The gateway will then trigger a lambda function that passes that url to the SQS queue, which is read by an EC2 box on standby. Since the VisDrone data is in a custom format, the pipeline converts it into the YOLO and COCO JSON formats, allowing us to train our selected models. This data is then zipped and uploaded into an S3 bucket, from which we can download the data into our notebooks. The figure \ref{fig:aws-pipeline} shows the general overview of the pipeline, while Figure \ref{fig:s3} shows the files in the bucket.
 
 \begin{figure}[!htb]
-    \centering
-    \includegraphics[width=0.5\linewidth]{images/AWS_diagram.png}
-    \caption{Initial data cloud pipeline}
-    \label{fig:aws-pipeline}
+	\centering
+	\includegraphics[width=0.5\linewidth]{images/AWS_diagram.png}
+	\caption{Initial data cloud pipeline}
+	\label{fig:aws-pipeline}
 \end{figure}
 
 \begin{figure}[!htb]
-    \centering
-    \includegraphics[width=0.75\linewidth]{images/s3_bucket.png}
-    \caption{View of our S3 bucket}
-    \label{fig:s3}
+	\centering
+	\includegraphics[width=0.75\linewidth]{images/s3_bucket.png}
+	\caption{View of our S3 bucket}
+	\label{fig:s3}
 \end{figure}
 
 \printbibliography
