@@ -247,7 +247,7 @@ There are no specific licenses require for the aforementioned tools and platform
 		NumPy            & Version 1.26.1 & Advanced mathematics         & Free      \\
 		PyTorch          & Version 2.4    & Modeling, Data Preprocessing & Free      \\
 		OpenCV           & Version 4.10   & Image Processing             & Free      \\
-		Ultralytics      & Version 8.3.2  & Modeling (with YOLOv8)       & Free      \\
+		Ultralytics      & Version 8.3.2  & Modeling (with YOLOv11)       & Free      \\
 		Detectron2       & Version 0.6    & Modeling (with Detectron2)   & Free      \\
 		Jupyter Notebook & Version 6.5.4  & Code REPL platform           & Free      \\
 		Google Colab     & N/A            & Code REPL platform           & Free      \\
@@ -263,7 +263,43 @@ There are no specific licenses require for the aforementioned tools and platform
 
 \subsection{Project Schedule}
 
-Project management is required to make sure projects are completed on time. To do so we use the waterfall technique to task management and to keep up with it we are following a schedule. This schedule can be visualized as a Gantt chart or PERT chart. A Gantt chart (see figure \ref{fig:gantt} and \ref{fig:gantt2}) shows the tasks on a timeline with dependencies, resources, and durations clearly visible. It allows for quick references to make sure we are on track. A PERT chart (see figure \ref{fig:pert}) allows us to find the critical path in a projects completion. If there is a delay in any of the tasks in the critical path, that means there will be a delay on the entire project.
+Project management is required to make sure projects are completed on time. To do so we use the waterfall technique to task management and to keep up with it we are following a schedule. This schedule can be visualized as a Gantt chart or PERT chart. A Gantt chart shows the tasks on a timeline with dependencies, resources, and durations clearly visible. It allows for quick references to make sure we are on track. A PERT chart allows us to find the critical path in a projects completion. If there is a delay in any of the tasks in the critical path, that means there will be a delay on the entire project.
+
+Based on our project organization plan, the project schedule can be broken down into the same phases, namely; business understanding, data understanding, data preparation, modeling, and deployment. We created a Gantt chart to visualize this schedule and help use stay on track. Figure \ref{fig:gantt_1} shows our schedule for our research phase, which involves reading papers, doing comparative analysis, and selecting the appropriate approaches.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\linewidth]{images/gantt/gantt_1.png}
+    \caption{Project schedule, Business understanding}
+    \label{fig:gantt_1}
+\end{figure}
+
+Figure \ref{fig:gantt_2} shows the data phase of our project where we mainly focus on finding out the properties of the images in our dataset and the special considerations we need to make in our model regarding them. Since we have multiple models, we also spend time making sure that the same dataset is compatible with all models. If they are not compatible, then we must create a function to do those conversions for us. The rest of the time in this phase focuses mostly on data cleaning, images transformations, augmentations, and labeling. 
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\linewidth]{images/gantt/gantt_2.png}
+    \caption{Project schedule, Data understanding and preparation}
+    \label{fig:gantt_2}
+\end{figure}
+
+The most important phase of the project is during the modeling phase where we will take our selected models and train them on our selected datasets, configuring them to make sure they work as intended and produce good results. Simultaneously, we develop a pipeline version of atleast one model to run entirely on the cloud.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\linewidth]{images/gantt/gantt_3.png}
+    \caption{Project schedule, Modeling and prototype deployment}
+    \label{fig:gantt_3}
+\end{figure}
+
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\linewidth]{images/gantt/gantt_4.png}
+    \caption{Project schedule, tentative semester 2 schedule}
+    \label{fig:gantt_4}
+\end{figure}
+
 
 \section{Data Engineering}
 \subsection{Data Process}
@@ -514,28 +550,6 @@ Using an AWS API Gateway, we send a link to the  pipeline. The gateway will then
 
 \printbibliography
 
-\appendix
-
-\section{Project Management Charts}
-\begin{figure}
-	\centering
-	\includegraphics[width=\linewidth]{images/gantt/gantt_1.png}
-	\caption{Gantt Chart details}
-	\label{fig:gantt}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[width=\linewidth]{images/gantt/gantt_2.png}
-	\includegraphics[width=\linewidth]{images/gantt/gantt_3.png}
-	\caption{Gantt Chart Calendar view}
-	\label{fig:gantt2}
-\end{figure}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\linewidth]{images/pert.png}
-	\caption{PERT chart}
-	\label{fig:pert}
-\end{figure}
+% \appendix
 
 \end{document}
