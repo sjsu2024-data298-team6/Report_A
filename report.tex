@@ -119,8 +119,6 @@ Another review conducted by \textcite{badrloo_image-based_2022} looked at over a
 
 Besides the YOLO model, there is also research being done using the Detectron2 model \parencite{wu2019detectron2}, the following paper \parencite{wadhwa_comparison_2023} compares YOLOv8 and Detectron2 on the basis of number of objects detected, computation time, and confidence scores. They found that the typically YOLO detects more objects, but has lower accuracy than Detectron2. Another example of a study using the Detectron2 model comes from \textcite{abhishek_detectron2_2021}, where they attempted object detection through cartoonization. They were able to successfully detect object classes even under heavy image manipulation.
 
-%Another model being worked on is the GroundingDINO model \parencite{liu_grounding_2024}, this is a unique model as it pairs vision models and language understanding to create a novel way to classify images. \textcite{son_teacherstudent_2024} used GroundingDINO and YOLO to create an object detection model using multiple sensors, combining the automatic class labelling and fast inference times of the two models. This was done using a teacher student model architecture. \textcite{ren_grounding_2024} recently released an updated version of GroundingDINO with an expanded image dataset and improved vision capabilities. This new model improves the average precision score in end to end open set object detection benchmarks compared to the original GroundingDINO model.
-
 \section{Data and Project Management Plan}
 \subsection{Data Management Plan}
 \subsubsection{Data Collection Approaches}
@@ -195,7 +193,7 @@ To organize the project, a work breakdown structure was creating by decomposing 
 
 	\item Data Preparation: This phase involves two packages: Preparing the data and Splitting the data. Preparing the data is split up into various, incremental tasks: Collecting the data, reformatting the data to be consistent with each other, cleaning the data, transforming and augmenting the data, and labeling the data if needed. Once this is done, we can split the data into train, validation, and testing sets.
 
-	\item Modeling: The modeling phase has 3 main packages: Model Research, Modeling and Validation, and Evaluation. Model Research is split into 3 sub tasks: researching YOLOv8, Detectron2, and RT-DETR. Once this is completed we can move on to the modeling and validation step, where these architectures will go through transfer learning and fine tuning. Finally, we can evaluate the models by comparing their performances, and select the best performing one.
+	\item Modeling: The modeling phase has 3 main packages: Model Research, Modeling and Validation, and Evaluation. Model Research is split into 3 sub tasks: researching YOLOv11, Detectron2, and RT-DETR. Once this is completed we can move on to the modeling and validation step, where these architectures will go through transfer learning and fine tuning. Finally, we can evaluate the models by comparing their performances, and select the best performing one.
 
 	\item Deployment: The deployment phase has two deliverables: Deploying the project and data onto AWS as a backend prototype, and the final report submission.
 \end{enumerate}
@@ -224,6 +222,7 @@ We plan on utilizing Google Colab for initial testing. Google Colab is a free-to
 		\hline
 		Local Machines & various           & Coding platform  & Owned (free) \\
 		Google Colab   & T4 GPU (16GB RAM) & Compute platform & Free         \\
+		& A100 GPU (80GB RAM) & Compute platform & \$9.99/month         \\
 		\hline
 	\end{tabular}
 	% \tablenote{*Paid version available, A100 GPU utilizes approximately 11 compute units/hour}
@@ -255,6 +254,8 @@ There are no specific licenses require for the aforementioned tools and platform
 		GitHub           & N/A            & Code collaboration           & Free      \\
 		Overleaf         & N/A            & Report writing collaboration & \$9/month \\
 		TeamGantt        & N/A            & Gantt charts                 & Free      \\
+        Zotero           & N/A            & reserach paper management    & \$20/year \\
+        AWS Platform     & N/A            & cloud development platform for pipeline& Variable \\ 
 		\hline
 	\end{tabular}
 	% \tablenote{*Paid version available}
@@ -269,7 +270,7 @@ Based on our project organization plan, the project schedule can be broken down 
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=\linewidth]{images/gantt/gantt_1.png}
+    \includegraphics[width=0.8\linewidth]{images/gantt/gantt_1.png}
     \caption{Project schedule, Business understanding}
     \label{fig:gantt_1}
 \end{figure}
@@ -278,29 +279,40 @@ Figure \ref{fig:gantt_2} shows the data phase of our project where we mainly foc
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=\linewidth]{images/gantt/gantt_2.png}
+    \includegraphics[width=0.8\linewidth]{images/gantt/gantt_2.png}
     \caption{Project schedule, Data understanding and preparation}
     \label{fig:gantt_2}
 \end{figure}
 
-The most important phase of the project is during the modeling phase where we will take our selected models and train them on our selected datasets, configuring them to make sure they work as intended and produce good results. Simultaneously, we develop a pipeline version of atleast one model to run entirely on the cloud.
+The most important phase of the project is during the modeling phase where we will take our selected models and train them on our selected datasets, configuring them to make sure they work as intended and produce good results. Simultaneously, we develop a pipeline version of atleast one model to run entirely on the cloud. The schedule for this phase can be seen in Figure \ref{fig:gantt_3}
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=\linewidth]{images/gantt/gantt_3.png}
+    \includegraphics[width=0.8\linewidth]{images/gantt/gantt_3.png}
     \caption{Project schedule, Modeling and prototype deployment}
     \label{fig:gantt_3}
 \end{figure}
 
-
 \begin{figure}[!htb]
     \centering
-    \includegraphics[width=\linewidth]{images/gantt/gantt_4.png}
+    \includegraphics[width=0.8\linewidth]{images/gantt/gantt_4.png}
     \caption{Project schedule, tentative semester 2 schedule}
     \label{fig:gantt_4}
 \end{figure}
 
 
+
+As this project extends into the next semester, we have also included a tentative schedule based on our current expectations. The gantt chart for that can be seen in Figure \ref{fig:gantt_4}. The PERT chart for this entire project can also be seen in Figure \ref{fig:pert}
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[height=18cm]{images/pert.png}
+    \caption{Pert chart for the project}
+    \label{fig:pert}
+\end{figure}
+
+\newpage
+\clearpage
 \section{Data Engineering}
 \subsection{Data Process}
 The dataset used will be the VisDrone dataset. Due to the way the data pipeline is structured, this dataset is obtained from the Ultralytics GitHub. The data is passed through the pipeline to format it into YOLO format and COCO JSON format. Once this reformatting is completed, we download the data as a zip file. For more information, see the Data Pipeline section later in this report.
