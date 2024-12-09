@@ -105,6 +105,10 @@ Anomaly detection is another way to create good models for autonomous operation.
 
 \textcite{jenefa_real-time_2023} worked on a real time DCNN model for railway obstacle detection with an overall 98\% accuracy running on low powered edge devices, such as the Raspberry Pi or NVidia Jetson boards. \textcite{noguchi_road_2024} released a recent paper that found road obstacles using `objectness' scores and `unknown' scores to create a multiple per pixel classification for unknown objects. \textcite{andreev_runway_2021} proposed a method for flight runway obstacle detection using object segmentation methods and background subtraction. The model was successful in detecting the correct object class in the tested simulation scenarios.
 
+\textcite{ye_real-time_2023} worked on a real time object detection network for UAVs based on a CNN and transformer. They proposed a real time detector, with a backbone composed of a CNN and transformer, a feature fusion network, and an attention prediction head. When testing on the COCO2017 dataset, they achieved a maP0.5 of 58.0 and a mAP50-95 of 38.1. Ye et al also performed tests on an embedded platform, achieving a mAP of 86.4 on their self collected UAV dataset at the cost of lower inference time. Nonetheless, this method proves that a transformer based model can be used on an embedded device for accurate, real time inference.
+
+\textcite{tangHicYolo} presents an improved version of YOLOv5 that contains an additional prediction head for small objects, an involution block to increase channel information for feature maps, and a convolutional block attention module for information extraction. On the Visdrone dataset, they were able to achieve an mAP50 of 44.31 and mAP50-95 of 25.95. 
+
 Finally, we look at another aspect of effective obstacle detection, and that is to know the boundaries of what you need to actually detect. \textcite{wang_efficient_2018} worked on this issue by implementing a rail area detection model using CNN and they achieved 99.15\% mean pixel accuracy in finding the boundaries.
 
 \subsection{Literature Survey of Existing Research}
@@ -118,6 +122,9 @@ Another review conducted by \textcite{badrloo_image-based_2022} looked at over a
 \textcite{hu_novel_2019} devised an algorithm to efficiently label a vast image dataset by only manually labelling around 10\% of the images. Afterwards, using this semi auto labelled dataset, the actual vision model was able to achieve a 95.83\% on test data.
 
 Besides the YOLO model, there is also research being done using the Detectron2 model \parencite{wu2019detectron2}, the following paper \parencite{wadhwa_comparison_2023} compares YOLOv8 and Detectron2 on the basis of number of objects detected, computation time, and confidence scores. They found that the typically YOLO detects more objects, but has lower accuracy than Detectron2. Another example of a study using the Detectron2 model comes from \textcite{abhishek_detectron2_2021}, where they attempted object detection through cartoonization. They were able to successfully detect object classes even under heavy image manipulation.
+
+For unmanned aerial vehicles, transformers are also a popular choice to perform obstacle detection. \textcite{bhattacharya_vision_2024} utilizes a vision transformer (ViT) model to perform obstacle detection in real time for high speed quadrotor unmanned aerial vehicles. Their primary objective is to compare the effectivess of the Vision Transformer for detecting obstacles at high speed within cluttered environments. They compare the performance of 5 different model samples. The models compared were ViT on its own, ViT + LSTM, ConvNet, ConvNet + LSTM, and UNET + LSTM. The researchers ended up finding that other than the ViT on its own which managed to generalize the best on unseen data, the ViT + LSTM version manages to perform better in every other way. 
+
 
 \section{Data and Project Management Plan}
 \subsection{Data Management Plan}
@@ -149,7 +156,7 @@ Utilizing obstacle detection with computer vision can play a crucial role in hel
 
 
 \subsubsection{Data Understanding}
-For the data collection phase, the primary datasets will be sourced from public repositories such as the COCO dataset, RoboFlow, and other APIs that are focused on obstacle detection across various domains (Mainly on Autonomous drones). The custom datasets will also be created and used by capturing images and videos in various environments.
+For the data collection phase, the primary datasets will be sourced from public repositories such as the COCO dataset, RoboFlow, and other APIs that are focused on obstacle detection across various domains. The custom datasets will also be created and used by capturing images and videos in various environments.
 
 For the data exploration phase, we are going to conduct an initial EDA process to assess the distribution of the class, such as car, pedestrian, and more. Another important aspect of our data that we need to understand is its format. For example, YOLOv11 and RT-DETR can use JPEG and PNG images with JSON annotations, while Detectron2 supports JPEG, PNG, and TIFF image formats, also using JSON annotations. It is essential that the data format is known, because the data will be combined into one master dataset. One issue that arises when doing so is differing formats among the data. As stated before, certain architectures are able to handle certain image types, label formats, etc. Additionally, data often come in different formats, such as image size, colorspace, image type, and annotation format. Due to this, we must understand the data formats first to ensure consistency when we combine our data together.
 
@@ -358,6 +365,15 @@ Normalization is used for many reasons. The first reason is to scale each pixel 
 
 Color jittering is used to change the hue, saturation, and brightness of an image. In our case, color jittering is used to try to emulate environmental conditions, such as day and night, snow, rain, and so on. We adjust the hue, saturation, and brightness of our images by 0.015, 0.7, and 0.4 respectively.
 
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.245\linewidth]{preprocessing/resized_img.png}
+    \includegraphics[width=0.245\linewidth]{preprocessing/preprocessed_img.png}
+    \includegraphics[width=0.245\linewidth]{preprocessing/normalized_img.png}
+    \caption{Caption}
+    \label{fig:enter-label}
+\end{figure}
+
 
 
 \subsection{Data Transformation}
@@ -429,32 +445,34 @@ For modeling, we will be using transfer learning on state of the art object dete
 
 Detectron2 on the other hand, is based on two shot detection algorithms such as Faster RCNN and Mask RCNN. It utilizes a CNN backbone with a feature pyramid network, creates regions of interest using a region proposal network, then passes these in to region of interest heads to make predictions.
 
-According to \textcite{yaseen_what_2024},  YOLOv8 is a single-shot detector that processes the entire image in one pass, which make YOLOv8 possible to handle both classification and localization within each grid cell. The backbone of YOLOv8 is a advanced convolutional Neural Network and the neck of YOLOv8 architecture uses Feature Pyramid Networks (FPN) integrating with Path Aggregation Network (PAN) structure, which allows the model to handle multi-scale feature extraction from the input image. This architecture aggregates the features from multiple layers, ensuring that both high and low level features also be used in the final prediction. Finally in the head part of the architecture, it generates final prediction including bounding box coordinates, confidence scores, and class labels. The key features of YOLOv8 is that unlike typical object detection models, YOLOv8 adopts an anchor free approach. Instead of predefining anchor boxes, it directly predicts bounding boxes, which simplifies the complexity and improves detection accuracy for irregularly shaped objects. Pictured in Figure \ref{fig:YOLOv8-architecture} is the architecture for YOLOv8.
+According to \textcite{yaseen_what_2024}, YOLO models are a single-shot detector that processes the entire image in one pass, which make YOLO models possible to handle both classification and localization within each grid cell. The backbone of YOLOv11 is a advanced convolutional Neural Network and the neck of YOLOv11 architecture uses Feature Pyramid Networks (FPN) integrating with Path Aggregation Network (PAN) structure, which allows the model to handle multi-scale feature extraction from the input image. This architecture aggregates the features from multiple layers, ensuring that both high and low level features also be used in the final prediction. Finally in the head part of the architecture, it generates final prediction including bounding box coordinates, confidence scores, and class labels. The key features of YOLOv11 is that unlike typical object detection models, YOLOv11 adopts an anchor free approach. Instead of predefining anchor boxes, it directly predicts bounding boxes, which simplifies the complexity and improves detection accuracy for irregularly shaped objects. Pictured in Figure \ref{fig:YOLOv11-architecture} is the architecture for YOLOv11. 
 
-YOLOv11 is similar in concept for YOLOv8. According to the Ultralytics documentation \parencite{yolo11_ultralytics}, YOLOv11 has enhanced feature extraction due to its improved backbone and neck, better speed and efficiency due to its new architectures and pipelines, and fewer parameters than its previous versions while having better accuracy. Rather than the C2F blocks that YOLOv8 uses, YOLOv11 replaces them with C3k2 blocks, which are an improved version of the C2F block in terms of feature representation and efficiency due to its usage of split feature maps and smaller kernel sizes. Additionally, YOLOv11 adds an attention mechanism, known as the C2PSA block, to the end of its backbone; something that was non existent in previous versions. Due to the improved performance of YOLOv11, we chose to use it over previous YOLO models.
+According to the Ultralytics documentation \parencite{yolo11_ultralytics}, YOLOv11 has enhanced feature extraction due to its improved backbone and neck, better speed and efficiency due to its new architectures and pipelines, and fewer parameters than its previous versions while having better accuracy. Rather than the C2F blocks that the previous iteration, YOLOv8, uses, YOLOv11 replaces them with C3k2 blocks, which are an improved version of the C2F block in terms of feature representation and efficiency due to its usage of split feature maps and smaller kernel sizes. Additionally, YOLOv11 adds an attention mechanism, known as the C2PSA block, to the end of its backbone; something that was non existent in previous versions. Due to the improved performance of YOLOv11, we chose to use it over previous YOLO models.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=0.75\linewidth]{yolov11.png}
+	\caption{Basic architecture of YOLOv11.
+		\textit{Note}. The figure is taken from \textcite{rao_yolov11_2024}}
+	\label{fig:YOLOv11-architecture}
+\end{figure}
+
+
 
 Unlike YOLO, Detectron2 is uses two shot detection, meaning that its first pass generates regions of interest, and the second pass refines the proposals, extracts features, classifies, and creates bounding boxes for those regions. Detectron2 is primarily based on Mask RCNN, which is an extension of Faster RCNN. In this implementation, an input image is passed through a CNN backbone to extract its features. Then, this feature map is first passed into the region proposal network to obtain regions of interest, and both the feature map and regions of interests are passed into an RoI pooling layer to extract features from the regions of interest. For the typical Faster RCNN, the output from the RoI pooling layer is passed in to fully connected layers, outputting bounding box coordinates and their associated labels. For Mask RCNN, the feature map is also passed into another CNN to generate segmentation masks. Figure \ref{fig:Detectron2-architecture} features the basic architecture for Detectron2.
 
 %
-Real Time Detection Transformer, better known as RT-DETR \parencite{zhao_detrs_2024}, is a transformer based object detector that provides real time performance with relatively high accuracy. As the name suggests, it is based on the DETR framework, which is non-maximum suppression free. The paper notes that the speed and accuracy of typical YOLO models are negatively affected by NMS. To improve its processing speed, RT-DETR utilizes a convolution based backbone and a hybrid encoder. By leveraging these attributes, RT-DETR is able to efficientl process multiscale features by decoupling intrascale interaction and cross scale fusion to improve speed. Additionally, the model supports flexible speed tuning by allowing for the adjustment of the number of decoder layers to adapt to situations. The basic architecture for this model can be seen in Figure \ref{fig:rt-detr}.
-
-
-The models we will be using are as follows: YOLOv11, Detectron2 using Faster RCNN and RetinaNet, and RT-DETR. For future tests, we will test with different architecture sizes for YOLO and different models for Detectron2 from the model zoo featured on their GitHub page, since each architecture has its own advantages and disadvantages.
-
-\begin{figure}[!htb]
-	\centering
-	\includegraphics[width=0.75\linewidth]{images/YOLOv8_architecture.png}
-	\caption{Basic architecture of YOLOv8.
-		\textit{Note}. The figure is taken from \textcite{sapkota_comparing_2024}}
-	\label{fig:YOLOv8-architecture}
-\end{figure}
-
 \begin{figure}[!htb]
 	\centering
 	\includegraphics[width=0.75\linewidth]{images/Detectron2_architecture.png}
 	\caption{Basic architecture of Detectron2. \textit{Note}. The figure is taken from \textcite{ackermann_automated_2022}}
 	\label{fig:Detectron2-architecture}
 \end{figure}
+
+Real Time Detection Transformer, better known as RT-DETR \parencite{zhao_detrs_2024}, is a transformer based object detector that provides real time performance with relatively high accuracy. As the name suggests, it is based on the DETR framework, which is non-maximum suppression (NMS) free. The paper notes that the speed and accuracy of typical YOLO models are negatively affected by NMS. To improve its processing speed, RT-DETR utilizes a convolution based backbone and a hybrid encoder. By leveraging these attributes, RT-DETR is able to efficiently process multiscale features by decoupling intrascale interaction and cross scale fusion to improve speed. Additionally, the model supports flexible speed tuning by allowing for the adjustment of the number of decoder layers to adapt to situations. The basic architecture for this model can be seen in Figure \ref{fig:rt-detr}.
+
+
+The models we will be using are as follows: YOLOv11, Detectron2 using Faster RCNN and RetinaNet, and RT-DETR. For future tests, we will test with different architecture sizes for YOLO and different models for Detectron2 from the model zoo featured on their GitHub page, since each architecture has its own advantages and disadvantages.
 
 \begin{figure}
     \centering
@@ -470,6 +488,8 @@ Given the high computational demands of deep learning tasks with image data, esp
 
 \subsubsection{Hardware environment}
 For the hardware environment, Google Colab provides access to NVIDIA T4 GPU, which enable us to have strong performance for deep learning tasks, especially for large image datasets. Also, Kaggle notebook offers NVIDIA P100 GPU, which allow us to handle complex and computationally heavy models such as YOLO and Detectron2. Kaggle notebook has 30 hours of free GPU usage that refreshes every week. This makes it a useful tool when taking into consideration the computational cost of the models.
+
+For our pipeline implementation, we have opted to use amazon web services (AWS) to run our models on the cloud. The environment used for model training uses the `g5.2xlarge' instance, which offers 32GB of RAM and an Nvidia A10 GPU. 
 
 \subsubsection{Frameworks}
 For frameworks we are using, both Google Colab and Kaggle Notebooks support PyTorch and TensorFlow. Thus, for this project, we will primarily use PyTorch due to its flexibility and compatibility with the obstacle detection task. We will also use the Ultralytics YOLO library, which integrates smoothly with PyTorch, so that it makes training and deploying the YOLO and RT-DETR models simpler.
@@ -489,7 +509,7 @@ The figure \ref{fig:mlFlowchart} represents general platform architecture view f
 
 The primary targeted problem is to detect obstacle efficiently and accurately in various challenging environments especially in drone path domain. The models considered include YOLOv11, Detectron2, and RT-DETR.
 
-As mentioned in the model proposal section, YOLOv8 is a single shot detector built upon Convolutional Neural Network and Feature Pyramid Network combined with Path Aggregation Network for the purpose of multi-scale feature extraction. YOLOv11 has similar architecture to YOLOv8, but it replaces C2F block in YOLOv8 with more efficient C3k2 blocks so that it can reduces parameter count while boosting a speed. On the other hand, Detectron2 uses a two-shot detector built upon Mask RCNN. It uses Convolutional Neural Network, Region Proposal Network as backbones and uses RoI pooling to identify object locations.
+As mentioned in the model proposal section, YOLO is a single shot detector built upon Convolutional Neural Network and Feature Pyramid Network combined with Path Aggregation Network for the purpose of multi-scale feature extraction. YOLOv11 replaces C2F block in its predecessors with more efficient C3k2 blocks so that it can reduces parameter count while boosting a speed. On the other hand, Detectron2 uses a two-shot detector built upon Mask RCNN. It uses Convolutional Neural Network, Region Proposal Network as backbones and uses RoI pooling to identify object locations. RT-DETR is able to efficiently process multiscale features by decoupling intrascale interaction and cross scale fusion to improve speed.
 
 
 \subsubsection{Strengths and Limitations}
@@ -520,38 +540,119 @@ Mean Average Precision: To understand mAP, we need to first understand what aver
 
 Intersection over union: IoU is another popular metric used to gauge how well the model's bounding box prediction performs. Like the name suggests, it measures the intersection of two bounding boxes divided by their union. In other words, it measures how much overlap two boxes have. In the case for object detection, this metric is generally used to see how much overlap a predicted box has with the ground truth.
 
-Inference Time: For embedded models, inference time is an important metric to measure. If a model is not able to achieve real time speeds, there is no point in embedding it onto a device. The simplest measure of inference time is Frames Per Second. FPS can be measured by taking the total processing time, which is typically measured in milliseconds, and dividing it by 1 second or its equivalent. This gives us an idea of how many image frames can be processed per second.
+Inference Time: For embedded models, inference time is an important metric to measure. If a model is not able to achieve real time speeds, there is no point in embedding it onto a device. The simplest measure of inference time is measured in milliseconds. The faster the inference time, the more image frames that can be processed in a single second.
 
 %%% Maybe have results here then
 \subsubsection{Results}
+
+We tried multiple tests for each model in order to see if certain parameters or preprocessing methods helped or hurt the performance.
+
+For YOLOv11:
+The initial YOLOv11 test was using the default parameters provided by the Ultralytics train method. This test achieved a mAP50 of 0.404 and mAP50-95 of 0.241. The average IoU was 0.686 and the average inference time per image was 14.6 milliseconds.
+
+For the different test cases, in this model, we kept the epochs and image size consistent. The epochs was set to 100 and the image size was set to 640. We tested out different values for 7 specific parameters across 4 different test cases. These parameters were the batch size, learning rate, optimizer, mosaic, warmup epochs, box loss weight, and weight decay. The batch size shows how much memory is used in training, the stability, and its impact on model convergence. The learning rate specifically describes how big a step size to take going into the next iteration which can have a huge impact on the outcome of the training process. The optimizer chosen can have a big impact as well on the training and model stability due to different rules that are followed for each optimizer type. Mosaic is a specific augmentation technique which can help prevent the model from overfitting. It can help the model to perform detections based on different environments and setups. The warmup epochs parameter is useful because it can lead to a stable training process starting as soon as possible. This is especially effective if we have a large learning rate or a large batch size. The box loss weight is used to see the amount of importance placed between creating an accurate bounding box around certain objects and other important parts of the classification process. Lastly, the weight decay is a regularization technique that can be employed by adding a penalty term to try and reduce the risks of overfitting. In general, the primary reason for using different variations of numbers across these 7 parameters specifially is  because of the diverse impact that such parameters could have to the model's performance; this includes even minor changes to the value of one of the parameters. These 7 parameters in particular can have some of the most significant impacts and show some of the biggest differences in the models' performance. They can provide different variations in how the model performs. 
+
+For the first test case, we set the parameters to the following values: batch = 8, lr0 = 0.001, optimizer = SGD, mosaic = 0.3, warmup\_epochs = 3, box = 5.0, and weight\_decay = 0.0005. Upon applying these, the average IoU was about 0.6903. The map50 was around 0.38 and the map50-95 was around 0.227. Upon gathering the different values related to inference speed when doing the prediction, we found that the inference time per image was 11.6ms. 
+
+In the second test case, we set each parameter to the following values: batch = 16, lr0 = 0.005, optimizer = "Adam", mosaic = 0.6, warmup\_epochs = 2, box = 8.0, and weight\_decay = 0.001. After applying these parameters, the average IoU was around 0.6974. The map50 was around 0.381 and the map50-95 was about 0.229. After doing the prediction on this test case, we found the inference time per image to be 11.2ms. 
+
+In the third test case, we set each parameter to be the following values: batch = 24, lr0 = 0.01, optimizer = AdamW, mosaic = 0.9, warmup\_epochs = 1, box = 12.0, and weight\_decay = 0.0001. Upon applying this combination of parameters, we got an average IoU of around 0.6738. The map50 was around 0.385 and the map50-95 was around 0.236. After doing the prediction using this test case, we got an inference time per image of 11.8 ms. 
+
+
+For Detectron2:
+The first test was a general test using the Detectron2 framework. We noted that by default, Detectron2 does not have in built image augmentations like the Ultralytics API. As a result, the second test includes the following image augmentations: random brightness ranging from 0.6 to 1.4, random saturation ranging from 0.3 to 1.7, random contrast ranging from 0.985 to 1.015, and random horizontal flipping. The final tests were a variation of the second test, applying different parameters to the preprocessed data.
+
+As explained in the previous sections, we employed two different backbones: faster rcnn and retinanet.
+
+The initial faster rcnn test used 2 images per batch with 20000 iterations and a learning rate of 0.00025, and a score threshold of 0.5. This test achieved a mAP50 of 0.205 and mAP50-95 of 0.126. This test achieved an IoU for 0.1415. % iou is kinda scuffed; add inference time
+
+The second faster rcnn test used the image preprocessing listed above with the same parameters as the first test. This test achieved a mAP50 of 0.165 and a mAP50-95 of 0.101. This test achieved an IoU of 0.1379. 
+
+The third faster rcnn test used slightly shifted image preprocessing parameters from the first and second test. The third test includes the following image augmentations: random brightness ranging from 1.0 to 1.2 and random saturation ranging from 0.5 to 1.5. For the third test, we ran on few iterations to test different combinations of learning rate, batch size, max iteration, and threshold. The results are shown in Table \ref{tab:fasterrcnn}. 
+
+\begin{table}[!htb]
+	\centering
+	\caption{Test results on different combinations of hyperparameters on Faster Rcnn}
+	\begin{tabular}{ccccccc}
+		\hline
+        Learning Rate & Images per batch & Max iteration & IOU & mAP & mAP50 & mAP75 \\
+        \hline
+        0.00005	 & 2 & 20000 & 0.1742 & 10.0953 & 18.7158 & 9.8818 \\
+        0.0005	 & 4 & 10000 & 0.1467 & 13.8973 & 25.3873 & 13.8408 \\
+        0.005    & 8 & 5000 & 0.1231 & 15.8934 & 29.4669 & 15.5109 \\
+		\hline
+	\end{tabular}
+	\label{tab:fasterrcnn}
+\end{table}
+
+
+The inference time for the faster rcnn tests were roughly the same across all of the tests. It averaged around 120 milliseconds per image.
+
+For retinanet, the initial test used the same parameters as the first faster rcnn test. It achieved a mAP50 of 0.238 and mAP50-95 of 0.145. The IoU for this test was 0.2156.
+% iou...
+
+Retinanet's second test also used the same parameters and preprocessing as the second faster rcnn test. It achieved a mAP50 of 0.186 and mAP50-95 of 0.114. The ioU for this test was 0.2045, only slightly worse than the original test.
+
+The third Retinanet test was performed on the same image preprocessing parameters. Like the third test on the faster rcnn, it was iterated several times to compare and contrast different hyperparameter combinations. The results are shown in Table \ref{tab:retinanet}.  
+
+\begin{table}[!htb]
+	\centering
+	\caption{Test results on different combinations of hyperparameters on Retinanet}
+	\begin{tabular}{ccccccc}
+		\hline
+        Learning Rate & Images per batch & Max iteration & IOU & mAP & mAP50 & mAP75 \\
+        \hline
+        0.00005	 & 2 & 20000 & 0.2118 & 8.2370 & 13.6917 & 8.6030 \\
+        0.0005	 & 4 & 10000 & 0.2078 & 11.2938 & 18.7913 & 11.7696 \\
+        0.005    & 8 & 5000 & 0.2130 & 12.9974 & 22.0219 & 13.5686 \\
+		\hline
+	\end{tabular}
+	\label{tab:retinanet}
+\end{table}
+
+
+The average inference time per image for the retinanet tests were similar to that of the faster rcnn tests. We believe that the difference in speed is negligible, and could be due to differing devices.
+
+
+For RT-DETR:
+
+The RT-DETR model was run using the Ultralytics API. For the initial test, we ran it for 100 epochs at a batch size of 16 and image size of 640. Everything else was left as default according to the Ultralytics train function (this includes parameters and image preprocessing). This test achieved a mAP50 of 0.505 and mAP50-95 of 0.31. The average IoU was 0.549, and the inference time was 46.3 ms per image.
+
 Results can be summarized in Table \ref{tab:results}. The IoU for the YOLO models was far greater than the Detectron models. For our initial testing, we used mostly default values for all models. These results show us that the defaults for the YOLO trainers are more sensible and allow the model to train much better. The mAP scores for all models are relatively low, this can be explained by the fact that our bounding box sizes are so small compared to our image sizes, that the predicted widths and heights have a high margin of error.
 
-\begin{table}[H]
+\begin{table}[!htb]
 	\centering
-	\begin{tabular}{lccc}
-		\hline
-		Model                    & mAP50 & mAP50-95 & IoU  \\
-		\hline
-		YOLOv8                   & 0.305 & 0.175    & 0.68 \\
-		YOLOv11                  & 0.404 & 0.241    & 0.69 \\
-		Detectron2 (retinanet)   & 0.205 & 0.126    & 0.14 \\
-		Detectron2 (faster rcnn) & 0.238 & 0.145    & 0.22 \\
-		\hline
+	\begin{tabular}{lcccc}
+  \hline
+  Model                    & mAP50 & mAP50-95 & IoU & Inference Time \\\hline
+  YOLOv8                   & 0.305 & 0.175    & 0.68  & 11.6 ms\\ 
+  YOLOv11                  & 0.404 & 0.241    & 0.69  & \\
+  Detectron2 (retinanet)   & 0.220 & 0.136    & 0.213 & 120ms\\
+  Detectron2 (faster rcnn) & 0.295 & 0.155    & 0.123 & 120ms\\
+  RT-DETR                  & 0.505 & 0.31     & 0.549 & 46.3 ms\\\hline
 	\end{tabular}
 	\caption{Metrics result of the models}
 	\label{tab:results}
 \end{table}
 
 %probalby organize stuff in a table, but im going to give some general stuff here
-In terms of mAP, RT-DETR outperformed the other models by a significant margin, boasting a mAP50 of 0.505 and mAP50-95 of 0.31. This is to be expected, as transformer based models perform better with small and occluded objects due to its self attention mechanism. On the other hand, this increased performance does come with a trade off. In terms of inference time, it takes a total of around 46.3 ms per image, giving us an FPS of around 21. YOLOv11 had slightly worse performance, but significantly greater FPS. When compared with the detectron2 tests, both YOLO and RT-DETR outperformed them in terms of mAP, IoU, and FPS. Given these results, YOLOv11 may be a better model for an embedded device. However, with some improvements, the transformer based models could be the right way to go. 
+
+
+In terms of mAP, RT-DETR outperformed the other models by a significant margin, boasting a mAP50 of 0.505 and mAP50-95 of 0.31. This is to be expected, as transformer based models perform better with small and occluded objects due to its self attention mechanism. On the other hand, this increased performance does come with a trade off. In terms of inference time, it takes a total of around 46.3 ms per image. YOLOv11 had slightly worse performance, but significantly greater FPS. Additionally, the IoU for RT-DETR was slightly lower than YOLOv11. When compared with the detectron2 tests, both YOLO and RT-DETR outperformed them in terms of mAP, IoU, and inference time. We believe that Detectron2's poor performance can be attributed to the dataset itself, which has many small and occluded objects. 
+
+Given these results, YOLOv11 may be a better model for an embedded device. However, with some improvements, the transformer based models could be the right way to go. 
 
 \subsection{Data Pipeline Demo}
 
-Using an AWS API Gateway, we send a link to the  pipeline. The gateway will then trigger a lambda function that passes that url to the SQS queue, which is read by an EC2 box on standby. Since the VisDrone data is in a custom format, the pipeline converts it into the YOLO and COCO JSON formats, allowing us to train our selected models. This data is then zipped and uploaded into an S3 bucket, from which we can download the data into our notebooks. The figure \ref{fig:aws-pipeline} shows the general overview of the pipeline, while Figure \ref{fig:s3} shows the files in the bucket.
+Using an AWS API Gateway, we send a link to the  pipeline. The gateway will then trigger a lambda function that passes that url to the SQS queue, which is read by an EC2 box on standby. Since the VisDrone data is in a custom format, the pipeline converts it into the YOLO and COCO JSON formats, allowing us to train our selected models. This data is then zipped and uploaded into an S3 bucket, from which we can download the data into our notebooks. Figure \ref{fig:s3} shows the results of our data conversion in the S3 bucket.
+
+Once our dataset is fully converted into the required formats, we trigger launching of a larger GPU enable instance
+
+The figure \ref{fig:aws-pipeline} shows the general overview of the pipeline, while Figure \ref{fig:s3} shows the files in the bucket.
 
 \begin{figure}[!htb]
 	\centering
-	\includegraphics[width=0.5\linewidth]{images/AWS_diagram.png}
+	\includegraphics[width=0.85\linewidth]{images/AWS_diagram.png}
 	\caption{Initial data cloud pipeline}
 	\label{fig:aws-pipeline}
 \end{figure}
@@ -565,6 +666,9 @@ Using an AWS API Gateway, we send a link to the  pipeline. The gateway will then
 
 \printbibliography
 
-% \appendix
+\appendix
+
+\section{Codes}
+Link to google drive with all code \href{https://drive.google.com/drive/folders/1v2ZJgjyh_n74P1Nv9IqH554BLGvzE3JF?usp=drive_link}{\color{blue}here}
 
 \end{document}
